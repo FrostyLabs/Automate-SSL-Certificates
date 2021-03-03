@@ -1,12 +1,13 @@
 #!/bin/sh
 
-if [ "$#" -ne 1 ]
+if [ "$#" -ne 2 ]
 then
-  excho "Usage: must supply a domain"
+  echo "Usage: must supply a domain, and IP address"
   exit 1
 fi
 
 DOMAIN=$1
+IP=$2
 
 mkdir -p ~/ca/$DOMAIN
 cd ~/ca/$DOMAIN
@@ -20,30 +21,35 @@ default_bits = 4096
 default_md = sha512
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 distinguished_name = dn
-basicConstraints = ext
-subjectAltName = @alt_names
+basicConstraints = CA:FALSE
 
 [dn]
-C=US
-ST=NY
-L=NY
+C=CH
+ST=ZH
+L=ZH
 O=Frosty Labs
 CN=$DOMAIN
 
-[ext]
+EOF
+
+cat >$DOMAIN.ext <<EOF
+authorityKeyIdentifier = keyid,issuer
 basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = $DOMAIN
+DNS.1=$DOMAIN
+IP=$IP
 EOF
 
 /usr/bin/openssl req -new -key $DOMAIN.key -out $DOMAIN.csr -config $DOMAIN.conf
 
 /usr/bin/openssl x509 -req -in $DOMAIN.csr \
-  -CA ~/ca/root/root.pem \
-  -CAkey ~/ca/root/root.key \
+  -CA /opt/ca/root/root.pem \
+  -CAkey /opt/ca/root/root.key \
   -CAcreateserial \
   -out $DOMAIN.crt -days 365 -sha512 \
-  -extfile $DOMAIN.conf
+  -extfile $DOMAIN.ext
 
 echo "[*] Done"
