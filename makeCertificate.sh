@@ -21,6 +21,7 @@ prompt = no
 default_bits = 4096
 default_md = sha512
 keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltNames = @alt_names
 distinguished_name = dn
 basicConstraints = CA:FALSE
 
@@ -31,6 +32,9 @@ L=ZH
 O=Frosty Labs
 CN=$DOMAIN
 
+[alt_names]
+DNS.1=$DOMAIN
+IP=$IP
 EOF
 
 cat >$DOMAIN.ext <<EOF
@@ -42,6 +46,7 @@ subjectAltName = @alt_names
 [alt_names]
 DNS.1=$DOMAIN
 IP=$IP
+
 EOF
 
 /usr/bin/openssl req -new -key $DOMAIN.key -out $DOMAIN.csr -config $DOMAIN.conf
