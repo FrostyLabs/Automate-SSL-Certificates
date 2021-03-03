@@ -3,6 +3,7 @@
 if [ "$#" -ne 2 ]
 then
   echo "Usage: must supply a domain, and IP address"
+  echo "Example: ./makeCertificate.sh your.domain.local 192.168.1.10
   exit 1
 fi
 
