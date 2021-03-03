@@ -2,8 +2,8 @@
 
 if [ "$#" -ne 2 ]
 then
-  echo "Usage: must supply a domain, and IP address"
-  echo "Example: ./makeCertificate.sh your.domain.local 192.168.1.10
+  /usr/bin/echo "Usage: must supply a domain, and IP address"
+  /usr/bin/echo "Example: ./makeCertificate.sh your.domain.local 192.168.1.10
   exit 1
 fi
 
@@ -53,4 +53,4 @@ EOF
   -out $DOMAIN.crt -days 365 -sha512 \
   -extfile $DOMAIN.ext
 
-echo "[*] Done"
+/usr/bin/echo "[*] Done"
