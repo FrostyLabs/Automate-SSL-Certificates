@@ -3,7 +3,7 @@
 /usr/bin/mkdir -p  ./ca/root/
 cd ./ca/root/
 
-cat > <<EOF
+cat > root.conf <<EOF
 [req]
 prompt = no
 default_bits = 4096
