@@ -9,6 +9,7 @@ fi
 
 DOMAIN=$1
 IP=$2
+CWD=$(/usr/bin/pwd)
 
 /usr/bin/mkdir -p ./ca/$DOMAIN
 cd ./ca/$DOMAIN
@@ -51,8 +52,8 @@ EOF
 /usr/bin/openssl req -new -key $DOMAIN.key -out $DOMAIN.csr -config $DOMAIN.conf
 
 /usr/bin/openssl x509 -req -in $DOMAIN.csr \
-  -CA ./ca/root/root.pem \
-  -CAkey ./ca/root/root.key \
+  -CA $CWD/ca/root/root.pem \
+  -CAkey $CWD/ca/root/root.key \
   -CAcreateserial \
   -extfile $DOMAIN.ext \
   -out $DOMAIN.crt -days 365 -sha512
