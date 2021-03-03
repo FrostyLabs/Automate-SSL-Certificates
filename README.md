@@ -24,7 +24,7 @@ You'll need to configure the makeCertificate.sh and correct the paths to your ce
 Then, all you need to do to use the script is: 
 
 ```
-$ ./makeCertificate.sh your.domain.local
+$ bash makeCertificate.sh your.domain.local 192.168.1.10
 ``` 
 
 And you should have the following files: 
@@ -32,6 +32,7 @@ And you should have the following files:
 - your.domain.local.conf
 - your.domain.local.crt 
 - your.domain.local.csr 
+- your.domain.local.ext
 - your.domain.local.key
 
 Hopefully this helps. 
