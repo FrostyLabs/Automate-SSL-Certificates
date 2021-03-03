@@ -14,6 +14,10 @@ $ makeRoot.sh
 
 You can verify that you have the `CA:TRUE` flag like this: 
 
+```
+$ openssl x509 -text -noout -in ./ca/root/root.pem | grep CA
+```
+
 You should have these files if it worked as planned: 
 
 - root.conf
@@ -22,9 +26,7 @@ You should have these files if it worked as planned:
 - root.pem
 - root.srl
 
-```
-$ openssl x509 -text -noout -in ./ca/root/root.pem | grep CA
-```
+
 
 ## Generating SSL keys
 
