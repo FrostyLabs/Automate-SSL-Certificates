@@ -5,6 +5,13 @@ This repository can be used to generate SSL certificates quickly. I wanted to av
 To do so, you'll need a pre-generated root key which you can use to sign the queries.
 
 ## Creating a root CA key
+Let's start with the creation of a root certificate. To do this, open makeRoot.sh and change the `yourPath` variable to your choice.
+
+After closing the file the permissions must be adjusted for this the following command must be executed
+
+```
+chmod +x makeRoot.sh
+```
 
 You only need to perform this step once. This key is used to sign any keys which we will generate afterwards. You will need to install this your generated key into your trusted certificate store.
 
@@ -30,12 +37,18 @@ You should have these files if it worked as planned:
 
 ## Generating SSL keys
 
-You'll need to configure the `distinguished_name` within makeCertificate.sh and if you like, correct the paths to your root certificate. The script works as it is though, but if you use your your own paths then there might be some adjustment required. It would be a great addition to add some optional parameters to the `makeCertificate.sh` script so that it would be more adaptable for different environments. This is something that I may do in the future. 
+You'll need to configure the `distinguished_name`, `yourPath`, `rootPath` within makeCertificate.sh.
 
-However, all you need to do to use the script is define the FQDN you would like to use, and the IP address of which the host is to be accessed on.  
+However, all you need to do to use the script is define the FQDN you would like to use, and the IP address of which the host is to be accessed on. The arguments can be used as shown in the examples below.
 
 ```
-$ bash makeCertificate.sh your.domain.local 192.168.1.10
+$ bash makeCertificate.sh -d your.domain.local -i 192.168.1.10
+``` 
+```
+$ bash makeCertificate.sh -domain your.domain.local -ip 192.168.1.10
+``` 
+```
+$ bash makeCertificate.sh --domain your.domain.local --ip 192.168.1.10
 ``` 
 
 And you should have the following files: 

@@ -1,7 +1,10 @@
 #!/bin/bash
 
-/usr/bin/mkdir -p  ./ca/root/
-cd ./ca/root/
+# Update this variable
+yourPath=/your/path/of/choice
+
+/usr/bin/mkdir -p  $yourPath
+cd $yourPath
 
 cat > root.conf <<EOF
 [req]
@@ -16,21 +19,14 @@ x509_extensions = my_extensions
 C=US
 ST=NY
 L=NY
-O=Frosty Labs
-CN=frosty.labs.local
+O=YourCoolName
+CN=YourCool.Name
 
 [my_extensions]
 basicConstraints = critical, CA:TRUE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid:always, issuer:always
 keyUsage = critical,  cRLSign, digitalSignature, keyCertSign
-
-# Commented out because not sure if RootCA should have these defined
-# subjectAltName = @alt_ca
-
-# [alt_ca]
-# DNS.1 = frosty.labs.local
-# IP=10.0.0.10
 
 EOF
 
