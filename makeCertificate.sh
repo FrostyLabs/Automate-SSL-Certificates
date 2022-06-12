@@ -8,6 +8,9 @@ while [ $# -gt 0 ]; do
     -i|-ip|--ip)
       ip="$2"
       ;;
+    -n|-nane|--name)
+      name="$2"
+      ;;
     *)
       printf "***************************\n"
       printf "* Error: Invalid argument.*\n"
@@ -24,12 +27,12 @@ yourPath=/your/path/of/choice
 # Path to your Root Certificate
 rootPath=/path/of/root/cert
 
-/usr/bin/mkdir -p $yourPath/$domain
-cd $yourPath/$domain
+/usr/bin/mkdir -p $yourPath/$name
+cd $yourPath/$name
 
-/usr/bin/openssl genrsa -out $domain.key 4096
+/usr/bin/openssl genrsa -out $name.key 4096
 
-cat >$domain.conf<<EOF
+cat >$name.conf<<EOF
 [req]
 prompt = no
 default_bits = 4096
@@ -51,7 +54,7 @@ DNS.1=$domain
 IP=$ip
 EOF
 
-cat >$domain.ext<<EOF
+cat >$name.ext<<EOF
 authorityKeyIdentifier = keyid,issuer
 basicConstraints=CA:FALSE
 subjectKeyIdentifier = hash
@@ -63,13 +66,13 @@ DNS.1=$domain
 IP=$ip
 EOF
 
-/usr/bin/openssl req -new -key $domain.key -out $domain.csr -config $domain.conf
+/usr/bin/openssl req -new -key $name.key -out $name.csr -config $name.conf
 
-/usr/bin/openssl x509 -req -in $domain.csr \
+/usr/bin/openssl x509 -req -in $name.csr \
   -CA $rootPath/root.pem \
   -CAkey $rootPath/root.key \
   -CAcreateserial \
-  -extfile $domain.ext \
-  -out $domain.crt -days 365 -sha512
-  
+  -extfile $name.ext \
+  -out $name.crt -days 365 -sha512
+
 /usr/bin/echo "[*] Done"
