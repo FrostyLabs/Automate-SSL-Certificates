@@ -42,22 +42,22 @@ You'll need to configure the `distinguished_name`, `yourPath`, `rootPath` within
 However, all you need to do to use the script is define the FQDN you would like to use, and the IP address of which the host is to be accessed on. The arguments can be used as shown in the examples below.
 
 ```
-$ bash makeCertificate.sh -d your.domain.local -i 192.168.1.10
+$ bash makeCertificate.sh -d 'your.domain.local' -i '192.168.1.10' -n 'nameOfCertificate'
 ``` 
 ```
-$ bash makeCertificate.sh -domain your.domain.local -ip 192.168.1.10
+$ bash makeCertificate.sh -domain 'your.domain.local' -ip '192.168.1.10' -name 'nameOfCertificate'
 ``` 
 ```
-$ bash makeCertificate.sh --domain your.domain.local --ip 192.168.1.10
+$ bash makeCertificate.sh --domain 'your.domain.local' --ip '192.168.1.10' --name 'nameOfCertificate'
 ``` 
 
 And you should have the following files: 
 
-- your.domain.local.conf
-- your.domain.local.crt 
-- your.domain.local.csr 
-- your.domain.local.ext
-- your.domain.local.key
+- nameOfCertificate.conf
+- nameOfCertificate.crt 
+- nameOfCertificate.csr 
+- nameOfCertificate.ext
+- nameOfCertificate.key
 
 Hopefully this helps. 
 
