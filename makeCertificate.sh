@@ -21,11 +21,10 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-# Update these variables
-# Path where the files should be created
-yourPath=/your/path/of/choice
-# Path to your Root Certificate
-rootPath=/path/of/root/cert
+# !!! Update these variables !!!
+yourPath=/your/path/of/choice # Path where the files should be created
+rootPath=/path/of/root/cert # Path to your Root Certificate
+# -------
 
 /usr/bin/mkdir -p $yourPath/$name
 cd $yourPath/$name
@@ -41,12 +40,13 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltNames = @alt_names
 distinguished_name = dn
 
-# Update these parameters
+# !!! Update this section !!!
 [dn]
 C=US
 ST=NY
 L=NY
 O=YourCoolName
+# -------
 CN=$domain
 
 [alt_names]

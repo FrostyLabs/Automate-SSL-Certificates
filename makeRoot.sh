@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Update this variable
+# !!! Update this variable !!!
 yourPath=/your/path/of/choice
+# -------
 
 /usr/bin/mkdir -p  $yourPath
 cd $yourPath
@@ -14,13 +15,14 @@ default_md = sha512
 distinguished_name = dn
 x509_extensions = my_extensions
 
+# !!! Update this section !!!
 [dn] 
-# Update these parameters
 C=US
 ST=NY
 L=NY
 O=YourCoolName
 CN=YourCool.Name
+# -------
 
 [my_extensions]
 basicConstraints = critical, CA:TRUE
@@ -35,4 +37,4 @@ EOF
 
 /usr/bin/openssl x509 -in root.pem -outform der -out root.crt
 
-/usr/bin/echo "[*] Made root"
+/usr/bin/echo "[*] Created root certificates"
