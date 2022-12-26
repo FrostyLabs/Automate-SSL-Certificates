@@ -4,7 +4,7 @@
 yourPath=/your/path/of/choice
 # -------
 
-/usr/bin/mkdir -p  $yourPath
+mkdir -p  $yourPath
 cd $yourPath
 
 cat > root.conf <<EOF
@@ -32,9 +32,9 @@ keyUsage = critical,  cRLSign, digitalSignature, keyCertSign
 
 EOF
 
-/usr/bin/openssl genrsa -out root.key 4096
-/usr/bin/openssl req -x509 -new -nodes -key root.key -sha512 -days 3650 -out root.pem -config root.conf
+openssl genrsa -out root.key 4096
+openssl req -x509 -new -nodes -key root.key -sha512 -days 3650 -out root.pem -config root.conf
 
-/usr/bin/openssl x509 -in root.pem -outform der -out root.crt
+openssl x509 -in root.pem -outform der -out root.crt
 
-/usr/bin/echo "[*] Created root certificates"
+echo "[*] Created root certificates"

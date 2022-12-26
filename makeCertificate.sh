@@ -26,10 +26,10 @@ yourPath=/your/path/of/choice # Path where the files should be created
 rootPath=/path/of/root/cert # Path to your Root Certificate
 # -------
 
-/usr/bin/mkdir -p $yourPath/$name
+mkdir -p $yourPath/$name
 cd $yourPath/$name
 
-/usr/bin/openssl genrsa -out $name.key 4096
+openssl genrsa -out $name.key 4096
 
 cat >$name.conf<<EOF
 [req]
@@ -66,13 +66,21 @@ DNS.1=$domain
 IP=$ip
 EOF
 
-/usr/bin/openssl req -new -key $name.key -out $name.csr -config $name.conf
+cat >$name.json<<EOF
+{
+  "name": "$name",
+  "dns":"$domain",
+  "ip": "$ip"
+}
+EOF
 
-/usr/bin/openssl x509 -req -in $name.csr \
+openssl req -new -key $name.key -out $name.csr -config $name.conf
+
+openssl x509 -req -in $name.csr \
   -CA $rootPath/root.pem \
   -CAkey $rootPath/root.key \
   -CAcreateserial \
   -extfile $name.ext \
   -out $name.crt -days 365 -sha512
 
-/usr/bin/echo "[*] Done"
+echo "[*] Created $domain certificates"
