@@ -76,11 +76,12 @@ EOF
 
 openssl req -new -key $name.key -out $name.csr -config $name.conf
 
+# Days should be max 365 if you planning to use the cert publicly 
 openssl x509 -req -in $name.csr \
   -CA $rootPath/root.pem \
   -CAkey $rootPath/root.key \
   -CAcreateserial \
   -extfile $name.ext \
-  -out $name.crt -days 365 -sha512
+  -out $name.crt -days 3650 -sha512
 
 echo "[*] Created $domain certificates"
